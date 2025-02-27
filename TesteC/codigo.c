@@ -4,43 +4,94 @@
 
 // Declaracao das futuras funcoes
 
+void menu();
+void inserirAluno();
+void listarAluno();
 void limpaTela();
 void pausaTela();
+void finalizar();
 
 // Struct
 struct tipoAluno {
     char    nome[50];
-    int     idade;
+    int     idade,id;
     float   altura;
 } ;
 
+// Variaveis globais 
+int    quantidadeAluno = 0;
+struct tipoAluno aluno[255];
+
 int main()
 {   
-    int    quantidadeAluno = 1;
-    struct tipoAluno aluno[quantidadeAluno];
+    menu();
+}
 
+void menu()
+{
+    int opcaoMenu;
+    do 
+    {
+        limpaTela();
+        
+        printf("Bem vindo ao menu do banco de dados de alunos!\n");
+        
+        printf("[1] Inserir aluno\n");
+        printf("[2] Listar alunos\n");
+        printf("[3] Sair\n");
+        printf("\nDigite a opcao: ");
+        scanf(" %d",&opcaoMenu);
+
+        switch(opcaoMenu)
+        {
+            case 1:
+                inserirAluno();
+                break;
+
+            case 2:
+                listarAluno();
+                break;
+
+            case 3:
+                finalizar();
+                break;
+
+            default:
+            printf("Opcao invalida!");
+
+        } 
+    } while (opcaoMenu != 3);
+}
+
+void inserirAluno()
+{   
     limpaTela();
+    //printf("Digite a quantidade de pessoas que queira adicionar: ");
+    //scanf(" %d", &quantidadeAluno);
 
-    printf("Bem vindo ao adicionar de alunos!\n");
+    //for (int i = 0; i < quantidadeAluno; i++)
+    //{
+        printf("\nDigite o nome do aluno %d: ", quantidadeAluno+1);
+        scanf(" %[^\n]s", aluno[quantidadeAluno].nome);
 
-    printf("Digite a quantidade de pessoas que queira adicionar: ");
-    scanf(" %d",&quantidadeAluno);
+        printf("Digite a idade do aluno %d: ", quantidadeAluno+1);
+        scanf(" %d", &aluno[quantidadeAluno].idade);
 
+        printf("Digite a altura do aluno %d: ", quantidadeAluno+1);
+        scanf(" %f", &aluno[quantidadeAluno].altura);
+
+        aluno[quantidadeAluno].id = quantidadeAluno + 1;
+        quantidadeAluno++;
+
+        printf("UWU");
+    //}
+}
+
+void listarAluno()
+{
     for (int i = 0; i < quantidadeAluno; i++)
     {
-        printf("\nDigite o nome do aluno %d: ", i+1);
-        scanf(" %[^\n]s", aluno[i].nome);
-
-        printf("Digite a idade do aluno %d: ", i+1);
-        scanf(" %d", &aluno[i].idade);
-
-        printf("Digite a altura do aluno %d: ", i+1);
-        scanf(" %f", &aluno[i].altura);
-    }
-
-    for (int i = 0; i < quantidadeAluno; i++)
-    {
-        printf("Dados:\n Nome:%s\n Idade:%d\n Altura:%.2f\n", aluno[i].nome, aluno[i].idade, aluno[i].altura);
+        printf("ID: %d | Aluno: %s | Idade: %d | Altura: %.2f\n", aluno[i].id, aluno[i].nome, aluno[i].idade, aluno[i].altura);
     }
     pausaTela();
 }
@@ -53,4 +104,9 @@ void limpaTela()
 void pausaTela()
 {
     system("pause");
+}
+
+void finalizar()
+{
+    printf("Programa finalizado");
 }
